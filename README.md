@@ -15,13 +15,13 @@ I have attached the code (in R) as a separate file and all the visualizations ar
 This plot shows that for the given data set, correlated variables are ratehr less. If we wee high number of correlated variables, we can use PCA or clustering basaed dimensionality reduction techniques to remove them from the systenm and do a more rigorous analysis
 
 ### vis 2: Prediction plot of accuracy for random forest 
-The accuracy for Random Forest model on the validation data set is " "
+The accuracy for Random Forest model on the validation data set is "0.9985"
 
 ### vis 3: Prediction plot of accuracy for Decision Tree model
-The accuracy for  Decision Tree Model on the validation data set is " "
+The accuracy for  Decision Tree Model on the validation data set is "0.7351"
 
 ### vis 4: Prediction plot of accuracy for GBM model
-The accuracy for GBM model on the validation data set is " "
+The accuracy for GBM model on the validation data set is "0.9881"
 
 ### Confusion Matrix(s)
 The confusion matrix for each method is saved in this file
