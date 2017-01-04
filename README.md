@@ -1,8 +1,11 @@
 # Practical_machine_learning_project
-Course Project - Practical machine learning 
-Author - Prakhar Maini
+##Course Project - Practical machine learning 
+##Author - Prakhar Maini
+## Key ojective 
 
-This repo is created as the final report for the course project for "Practical Machine Learning" course offered by Coursera. I have attached the code (in R) as a separate file and all the visualizations are attached separately:
+This repo is created as the final report for the course project for "Practical Machine Learning" course offered by Coursera.  The main goal of the project is to predict the manner in which 6 participants performed some exercise as described below. This is the “classe” variable in the training set. The machine learning algorithm described below is applied to the 20 test cases available in the test data and the predictions are submitted in appropriate format to the Course Project Prediction Quiz for automated grading. 
+
+I have attached the code (in R) as a separate file and all the visualizations are attached separately:
 
 ## Overview of the attachments 
 
