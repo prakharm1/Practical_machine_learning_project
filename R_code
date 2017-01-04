@@ -1,0 +1,88 @@
+library(knitr)
+library(caret)
+library(rpart)
+library(rpart.plot)
+library(rattle)
+library(randomForest)
+library(corrplot)
+set.seed(42)
+
+########################### downloading train and test data ####################################
+UrlTrain <- "http://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv" # setting the url for training data
+UrlTest  <- "http://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv" # setting the url for test data
+training <- read.csv(url(UrlTrain)) # downlaoding training data
+testing  <- read.csv(url(UrlTest)) # downlaoding test data
+
+########################## creating data partitions for validation (split 70 / 30) ############
+inTrain  <- createDataPartition(training$classe, p=0.7, list=FALSE)
+TrainSet <- training[inTrain, ] # training set
+TestSet  <- training[-inTrain, ] # validation set 
+dim(TrainSet)
+dim(TestSet)
+
+############################ data preprocessings ##############################################
+
+NZV <- nearZeroVar(TrainSet) # removing variable with near zero variance
+TrainSet <- TrainSet[, -NZV] 
+TestSet  <- TestSet[, -NZV]
+dim(TrainSet)
+dim(TestSet)
+
+AllNA    <- sapply(TrainSet, function(x) mean(is.na(x))) > 0.95 # removing variables and are mostly NAs
+TrainSet <- TrainSet[, AllNA==FALSE]
+TestSet  <- TestSet[, AllNA==FALSE]
+dim(TrainSet)
+dim(TestSet)
+
+TrainSet <- TrainSet[, -(1:5)] # removing the identification only variables in column 1 to 5 
+TestSet  <- TestSet[, -(1:5)]
+dim(TrainSet)
+dim(TestSet)
+
+########################### creating correlation matrix ######################################
+
+corMatrix <- cor(TrainSet[, -54])
+corrplot(corMatrix, order = "FPC", method = "color", type = "lower", 
+         tl.cex = 0.8, tl.col = rgb(0, 0, 0))
+
+################################ model building ##############################################
+
+## Random Forest model 
+set.seed(42)
+controlRF <- trainControl(method="cv", number=3, verboseIter=FALSE)
+modFitRandForest <- train(classe ~ ., data=TrainSet, method="rf", trControl=controlRF) # building model on the training data
+modFitRandForest$finalModel 
+
+predictRandForest <- predict(modFitRandForest, newdata=TestSet) # getting predictions on the validation data
+confMatRandForest <- confusionMatrix(predictRandForest, TestSet$classe)
+confMatRandForest
+
+plot(confMatRandForest$table, col = confMatRandForest$byClass, main = paste("Random Forest - Accuracy =", round(confMatRandForest$overall['Accuracy'], 4)))
+
+## Decision Tree Model
+set.seed(42)
+modFitDecTree <- rpart(classe ~ ., data=TrainSet, method="class") # building model on the training data
+fancyRpartPlot(modFitDecTree)
+
+predictDecTree <- predict(modFitDecTree, newdata=TestSet, type="class") # getting predictions on the validation data
+confMatDecTree <- confusionMatrix(predictDecTree, TestSet$classe)
+confMatDecTree
+
+plot(confMatDecTree$table, col = confMatDecTree$byClass, main = paste("Decision Tree - Accuracy =", round(confMatDecTree$overall['Accuracy'], 4)))
+
+## GBM Model
+set.seed(42)
+controlGBM <- trainControl(method = "repeatedcv", number = 5, repeats = 1)
+modFitGBM  <- train(classe ~ ., data=TrainSet, method = "gbm", trControl = controlGBM, verbose = FALSE) # building model on the training data
+modFitGBM$finalModel
+
+predictGBM <- predict(modFitGBM, newdata=TestSet) # getting predictions on the validation data
+confMatGBM <- confusionMatrix(predictGBM, TestSet$classe)
+confMatGBM
+
+plot(confMatGBM$table, col = confMatGBM$byClass, main = paste("GBM - Accuracy =", round(confMatGBM$overall['Accuracy'], 4)))
+
+## Applying the chosen model (Random Forest) to the test data
+predictTEST <- predict(modFitRandForest, newdata=testing)
+predictTEST
+
