@@ -65,5 +65,35 @@ Detection Prevalence   0.3106   0.1720   0.1922   0.1878   0.1375
 Balanced Accuracy      0.8982   0.7701   0.8735   0.7909   0.8008
 
 ################## confusion matrix for GBM ##################################
+Confusion Matrix and Statistics
 
+          Reference
+Prediction    A    B    C    D    E
+         A 1673   14    0    1    0
+         B    1 1120    3    3    7
+         C    0    2 1016   14    2
+         D    0    3    6  946   13
+         E    0    0    1    0 1060
+
+Overall Statistics
+                                         
+               Accuracy : 0.9881         
+                 95% CI : (0.985, 0.9907)
+    No Information Rate : 0.2845         
+    P-Value [Acc > NIR] : < 2.2e-16      
+                                         
+                  Kappa : 0.985          
+ Mcnemar's Test P-Value : NA             
+
+Statistics by Class:
+
+                     Class: A Class: B Class: C Class: D Class: E
+Sensitivity            0.9994   0.9833   0.9903   0.9813   0.9797
+Specificity            0.9964   0.9971   0.9963   0.9955   0.9998
+Pos Pred Value         0.9911   0.9877   0.9826   0.9773   0.9991
+Neg Pred Value         0.9998   0.9960   0.9979   0.9963   0.9954
+Prevalence             0.2845   0.1935   0.1743   0.1638   0.1839
+Detection Rate         0.2843   0.1903   0.1726   0.1607   0.1801
+Detection Prevalence   0.2868   0.1927   0.1757   0.1645   0.1803
+Balanced Accuracy      0.9979   0.9902   0.9933   0.9884   0.9897
 
