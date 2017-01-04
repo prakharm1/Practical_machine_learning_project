@@ -32,4 +32,38 @@ Detection Prevalence   0.2846   0.1941   0.1740   0.1635   0.1839
 Balanced Accuracy      0.9995   0.9986   0.9978   0.9990   1.0000
 
 ################## confusion matrix for Decision Tree ##################################
+Confusion Matrix and Statistics
+
+          Reference
+Prediction    A    B    C    D    E
+         A 1474  195   44   62   53
+         B   53  692   61   89  117
+         C   19   66  830  122   94
+         D  102  153   62  650  138
+         E   26   33   29   41  680
+
+Overall Statistics
+                                          
+               Accuracy : 0.7351          
+                 95% CI : (0.7236, 0.7463)
+    No Information Rate : 0.2845          
+    P-Value [Acc > NIR] : < 2.2e-16       
+                                          
+                  Kappa : 0.6642          
+ Mcnemar's Test P-Value : < 2.2e-16       
+
+Statistics by Class:
+
+                     Class: A Class: B Class: C Class: D Class: E
+Sensitivity            0.8805   0.6076   0.8090   0.6743   0.6285
+Specificity            0.9159   0.9326   0.9381   0.9075   0.9731
+Pos Pred Value         0.8063   0.6838   0.7339   0.5882   0.8405
+Neg Pred Value         0.9507   0.9083   0.9588   0.9343   0.9208
+Prevalence             0.2845   0.1935   0.1743   0.1638   0.1839
+Detection Rate         0.2505   0.1176   0.1410   0.1105   0.1155
+Detection Prevalence   0.3106   0.1720   0.1922   0.1878   0.1375
+Balanced Accuracy      0.8982   0.7701   0.8735   0.7909   0.8008
+
+################## confusion matrix for GBM ##################################
+
 
