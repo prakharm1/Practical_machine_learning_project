@@ -20,7 +20,7 @@ TestSet  <- training[-inTrain, ] # validation set
 dim(TrainSet)
 dim(TestSet)
 
-############################ data preprocessings ##############################################
+############################ data preprocessing ##############################################
 
 NZV <- nearZeroVar(TrainSet) # removing variable with near zero variance
 TrainSet <- TrainSet[, -NZV] 
@@ -47,7 +47,7 @@ corrplot(corMatrix, order = "FPC", method = "color", type = "lower",
 
 ################################ model building ##############################################
 
-## Random Forest model 
+################################### Random Forest model #######################
 set.seed(42)
 controlRF <- trainControl(method="cv", number=3, verboseIter=FALSE)
 modFitRandForest <- train(classe ~ ., data=TrainSet, method="rf", trControl=controlRF) # building model on the training data
@@ -59,7 +59,7 @@ confMatRandForest
 
 plot(confMatRandForest$table, col = confMatRandForest$byClass, main = paste("Random Forest - Accuracy =", round(confMatRandForest$overall['Accuracy'], 4)))
 
-## Decision Tree Model
+##################################### Decision Tree Model #######################
 set.seed(42)
 modFitDecTree <- rpart(classe ~ ., data=TrainSet, method="class") # building model on the training data
 fancyRpartPlot(modFitDecTree)
@@ -70,7 +70,7 @@ confMatDecTree
 
 plot(confMatDecTree$table, col = confMatDecTree$byClass, main = paste("Decision Tree - Accuracy =", round(confMatDecTree$overall['Accuracy'], 4)))
 
-## GBM Model
+######################################## GBM Model ################################
 set.seed(42)
 controlGBM <- trainControl(method = "repeatedcv", number = 5, repeats = 1)
 modFitGBM  <- train(classe ~ ., data=TrainSet, method = "gbm", trControl = controlGBM, verbose = FALSE) # building model on the training data
@@ -82,7 +82,6 @@ confMatGBM
 
 plot(confMatGBM$table, col = confMatGBM$byClass, main = paste("GBM - Accuracy =", round(confMatGBM$overall['Accuracy'], 4)))
 
-## Applying the chosen model (Random Forest) to the test data
+####################### Applying the chosen model (Random Forest) to the test data ##########################
 predictTEST <- predict(modFitRandForest, newdata=testing)
 predictTEST
-
