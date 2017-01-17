@@ -7,7 +7,7 @@ This repo is created as the final report for the course project for "Practical M
 
 I have attached the code (in R) as a separate file and all the visualizations are attached separately:
 
-I have used cross validation for the RF model and the Out of bag error for the best model (RF) was 
+I have used cross validation for the RF model and accuracy for the best model (RF) was 99.85%. Hence the expected out of bag error is 0.15% (100% - 99.85%).
 
 ## Overview of the attachments 
 
